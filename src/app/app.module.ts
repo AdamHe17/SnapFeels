@@ -10,14 +10,11 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import * as firebase from 'firebase';
-
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {ProfilePage} from "../pages/profile/profile";
-import {CaptureEmotionPageModule} from "../pages/capture-emotion/capture-emotion.module";
 import {TabsPage} from "../pages/tabs/tabs";
 import {CaptureEmotionPage} from "../pages/capture-emotion/capture-emotion";
 import {DataPage} from "../pages/data/data";
@@ -40,7 +37,9 @@ import { Camera } from '@ionic-native/camera';
     IonicModule.forRoot(MyApp),
     AngularFireModule,
     AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
