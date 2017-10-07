@@ -21,6 +21,7 @@ import {CaptureEmotionPageModule} from "../pages/capture-emotion/capture-emotion
 import {TabsPage} from "../pages/tabs/tabs";
 import {CaptureEmotionPage} from "../pages/capture-emotion/capture-emotion";
 import {DataPage} from "../pages/data/data";
+import {HttpModule} from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -37,6 +38,7 @@ import { Camera } from '@ionic-native/camera';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule,
     AngularFirestoreModule,
