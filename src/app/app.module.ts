@@ -16,13 +16,22 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {ProfilePage} from "../pages/profile/profile";
+import {CaptureEmotionPageModule} from "../pages/capture-emotion/capture-emotion.module";
+import {TabsPage} from "../pages/tabs/tabs";
+import {CaptureEmotionPage} from "../pages/capture-emotion/capture-emotion";
+import {DataPage} from "../pages/data/data";
 
 @NgModule({
   declarations: [
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    ListPage,
+    TabsPage,
+    CaptureEmotionPage,
+    ProfilePage,
+    DataPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    ListPage,
+    TabsPage,
+    CaptureEmotionPage,
+    ProfilePage,
+    DataPage
   ],
   providers: [
     StatusBar,
