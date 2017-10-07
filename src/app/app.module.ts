@@ -22,6 +22,8 @@ import {TabsPage} from "../pages/tabs/tabs";
 import {CaptureEmotionPage} from "../pages/capture-emotion/capture-emotion";
 import {DataPage} from "../pages/data/data";
 
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -54,6 +56,7 @@ import {DataPage} from "../pages/data/data";
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
