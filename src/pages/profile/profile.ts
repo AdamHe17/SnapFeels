@@ -17,33 +17,5 @@ import { AngularFireAuth } from 'angularfire2/auth'
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  user = {} as User;
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public viewController: ViewController,
-  ) {
-
-  }
-
-  async login(user: User) {
-    try {
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
-        .then(result => {
-          console.log(result);
-          this.viewController.dismiss();
-        }, error => {
-          console.log(error);
-        })
-    } catch (e) {
-      throw (e);
-    }
-
-  }
-
-  register() {
-    this.navCtrl.push('RegisterPage');
-  }
 }

@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { ImageProvider } from '../providers/image-provider/image-provider';
     TabsPage,
     CaptureEmotionPage,
     ProfilePage,
-    DataPage
+    DataPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { ImageProvider } from '../providers/image-provider/image-provider';
     TabsPage,
     CaptureEmotionPage,
     ProfilePage,
-    DataPage
+    DataPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
