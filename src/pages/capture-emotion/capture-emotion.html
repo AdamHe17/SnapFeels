@@ -5,22 +5,22 @@
 </ion-header>
 
 <ion-content class="home">
-  <div class="vertical" *ngIf="submitted">
-    <div style="text-align: center;">
+  <div class="vertical">
+    <div style="text-align: center;height:10%;">
       <h1>How do you feel today?</h1>
     </div>
 
-    <ion-card *ngIf="localImageUri">
-      <ion-card-content>
-        <img [src]="localImageUri" />
-      </ion-card-content>
+    <ion-card *ngIf="localImageUri" style="padding:10px;height:80%">
+      <div style="position:relative;overflow:hidden;height:100%">
+      <img [src]="localImageUri" style="position:relative;top:-30%;" />
+      </div>
     </ion-card>
 
     <div id="camera" *ngIf="!localImageUri">
       <img src="../../assets/icon/logo.jpeg" />
     </div>
 
-    <div class="buttons" *ngIf="!submitted">
+    <div class="buttons" *ngIf="!submitted" style="height: 10%;">
       <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
       <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
     </div>

@@ -43,6 +43,7 @@ export class CaptureEmotionPage {
     }
 
     this.emotion_api_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize';
+    this.submitted = false;
   }
 
   ionViewDidLoad() {
