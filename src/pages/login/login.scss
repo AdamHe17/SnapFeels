@@ -1,7 +1,9 @@
 page-login {
-  .flex-container {
+  .vertical {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     justify-content: space-around;
+    height: 80%;
+    margin: 10% 0;
   }
 }
