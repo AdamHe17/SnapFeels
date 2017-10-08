@@ -146,6 +146,7 @@ export class CaptureEmotionPage {
 
     if (!this.result) {
       alert.present();
+      this.submitted = false;
     } else {
       for(let i in this.result) {
         if (!this.face || this.result[i].faceRectangle.width > this.face.faceRectangle.width)
@@ -155,6 +156,7 @@ export class CaptureEmotionPage {
 
     if (!this.face) {
       alert.present();
+      this.submitted = false;
     }
   }
 
