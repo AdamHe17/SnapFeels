@@ -29,6 +29,7 @@ export class CaptureEmotionPage {
   blob;
   face;
   emotion_api_url: string;
+  submitted: boolean;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private camera: Camera, public http: Http, private fsp: FirestoreProvider) {
     this.cameraOptions = {
@@ -77,6 +78,7 @@ export class CaptureEmotionPage {
         this.fsp.saveFeel(feel);
         console.log(this.face);
         console.log(this.fsp.getData(uid));
+        this.submitted = true;
       }, error => {
         console.log(error);
       });
