@@ -33,14 +33,12 @@ export class LoginPage {
       //this.show = false;
   }
 
-  presentAlert() {
+  messageAlert(message: string) {
       const alert = this.alertCtrl.create({
-          title: 'Incorrect Password',
-          //subTitle: 'Incorrect Password',
+          title: message,
           buttons: ['Dismiss']
       });
       alert.present();
-
   }
 
   async login(user: User) {
@@ -51,9 +49,10 @@ export class LoginPage {
           this.viewController.dismiss();
         }, error => {
             console.log(error);
-            if (error.code == "auth/wrong-password") {
-                //this.show = true;
-                this.presentAlert();
+            if (error.code == "auth/invalid-email") {
+                this.messageAlert("Invalid Email Address");
+            } else if (error.code == "auth/wrong-password") {
+                this.messageAlert("Incorrect Password");
             }
           })
 
