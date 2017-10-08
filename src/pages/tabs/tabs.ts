@@ -8,7 +8,6 @@ import {ProfilePage} from "../profile/profile";
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-
   captureEmotionPage = CaptureEmotionPage;
   dataPage = DataPage;
   profilePage = ProfilePage;
