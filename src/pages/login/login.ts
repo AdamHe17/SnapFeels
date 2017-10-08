@@ -17,7 +17,8 @@ import { AngularFireAuth } from 'angularfire2/auth'
 })
 export class LoginPage {
 
-  user = {} as User;
+    user = {} as User;
+    show: boolean;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -25,21 +26,25 @@ export class LoginPage {
     public navParams: NavParams,
     public viewController: ViewController,
   ) {
-
+      this.show = false;
   }
 
   async login(user: User) {
-    try {
+    //try {
       const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
         .then(result => {
           console.log(result);
           this.viewController.dismiss();
         }, error => {
-          console.log(error);
-        })
-    } catch (e) {
-      throw (e);
-    }
+            console.log(error);
+            if (error.code == "auth/wrong-password") {
+                this.show = true;
+            }
+          })
+
+    //} catch (e) {
+      //throw (e);
+    //}
 
   }
 
