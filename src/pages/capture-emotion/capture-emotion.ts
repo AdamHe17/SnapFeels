@@ -87,17 +87,23 @@ export class CaptureEmotionPage {
   }
 
   setFace() {
+    const alert = this.alertCtrl.create({
+      title: 'No face found!',
+      message: "I couldn't find your face in the picture :(",
+      buttons: ['Try again']
+    });
+
     if (!this.result) {
-      const alert = this.alertCtrl.create({
-        title: 'No face found! :(',
-        buttons: ['Try again']
-      });
       alert.present();
     } else {
       for(let i in this.result) {
         if (!this.face || this.result[i].faceRectangle.width > this.face.faceRectangle.width)
           this.face = this.result[i];
       }
+    }
+
+    if (!this.face) {
+      alert.present();
     }
   }
 

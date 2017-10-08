@@ -8,6 +8,9 @@
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <!--<ion-buttons start ion-button icon-only (click)="presentPopover($event)">-->
+      <!--<ion-icon name="more"></ion-icon>-->
+    <!--</ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
@@ -18,7 +21,7 @@
     <canvas #stackedBarCanvas height="200"></canvas>
     <ion-item>
       <ion-label>Feelings:&nbsp;</ion-label>
-      <ion-select [(ngModel)]="selectedFeeling">
+      <ion-select [(ngModel)]="selectedFeeling" (ngModelChange)="updateSelectedFeeling()">
         <ion-option>anger</ion-option>
         <ion-option>contempt</ion-option>
         <ion-option>disgust</ion-option>

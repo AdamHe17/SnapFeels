@@ -1,10 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { User } from "../../models/user";
-import { AngularFireAuth } from 'angularfire2/auth';
+import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { FirestoreProvider } from "../../providers/firestore-provider/firestore-provider";
 import * as firebase from 'firebase';
+import {PopoverPage} from "../popover/popover";
 
 /**
  * Generated class for the ProfilePage page.
@@ -29,36 +28,44 @@ export class ProfilePage {
   feelingToColor: {};
   data: any;
 
-  constructor(public navCtrl: NavController, public firestoreProvider: FirestoreProvider) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public firestoreProvider: FirestoreProvider) {
     this.selectedFeeling = "happiness";
     this.feelingToColor = {
-      anger: 'rgba(170, 57, 57, 1)',
-      contempt: 'rgba(24, 45, 8, 1)',
-      disgust: 'rgba(132, 75, 31, 1)',
-      fear: 'rgba(15, 17, 19, 1)',
-      happiness: 'rgba(67, 67, 22, 1)',
-      neutral: 'rgba(63, 63, 60, 1)',
-      sadness: 'rgba(11, 13, 36, 1)',
-      surprise: 'rgba(79, 18, 42, 1)'
+      anger: 'rgba(237, 33, 33, 1)', //red
+      contempt: 'rgba(170, 92, 249, 1)', //purple
+      disgust: 'rgba(132, 75, 31, 1)', //brown
+      fear: 'rgba(17, 1, 34, 1)', //black
+      happiness: 'rgba(237, 237, 42, 1)', //yellow
+      neutral: 'rgba(170, 217, 83, 1)', //greyish green
+      sadness: 'rgba(26, 126, 233, 1)', //navy
+      surprise: 'rgba(233, 26, 230, 1)' //pink
     }
     const uid = firebase.auth().currentUser.uid;
     this.data = firestoreProvider.getData(uid);
   }
 
-  ionViewDidLoad() {
-    var barDatasets = [];
-    var labels = [];
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  updateSelectedFeeling() {
+    let barDatasets = [];
     this.data.subscribe(d => {
-      for (var i = 0; i < 8; i++) {
-        var feeling = Object.keys(this.feelingToColor)[i];
-        var data = d.map(_d => _d['scores'][feeling]);
-        barDatasets.push({
-          label: feeling,
-          data: data,
-          backgroundColor: this.feelingToColor[feeling].replace('1)', '0.2)'),
-          borderColor: this.feelingToColor[feeling],
-          borderWidth: 2
-        });
+      if (barDatasets.length == 0) {
+        for (var i = 0; i < 8; i++) {
+          var feeling = Object.keys(this.feelingToColor)[i];
+          var data = d.map(_d => _d['scores'][feeling]);
+          barDatasets.push({
+            label: feeling,
+            data: data,
+            backgroundColor: this.feelingToColor[feeling].replace('1)', '0.2)'),
+            borderColor: this.feelingToColor[feeling],
+            borderWidth: 2
+          });
+        }
       }
 
       this.stackedBarChart = new Chart(this.stackedBarCanvas.nativeElement, {
@@ -133,5 +140,9 @@ export class ProfilePage {
         }
       });
     });
+  }
+
+  ionViewDidLoad() {
+    this.updateSelectedFeeling();
   }
 }
