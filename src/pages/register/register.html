@@ -6,21 +6,24 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>SnapFeels</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h1>Register</h1>
-  <ion-item>
-    <ion-label floating>Email Address</ion-label>
-    <ion-input type="text" value=example@example.com [(ngModel)]="user.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-  </ion-item>
-  <div class="buttons">
-    <button ion-button (click)="register(user)">Register</button>
+  <div class="vertical">
+    <h1 style="font-size: 4rem">Register</h1>
+    <div>
+      <ion-item>
+        <ion-label floating>Email Address</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+      <br />
+      <br />
+      <button ion-button (click)="register(user)">Register</button>
+    </div>
   </div>
 </ion-content>
