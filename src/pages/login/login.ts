@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth'
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,15 +19,26 @@ import { AngularFireAuth } from 'angularfire2/auth'
 export class LoginPage {
 
     user = {} as User;
-    show: boolean;
+    //show: boolean;
 
   constructor(
     private afAuth: AngularFireAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewController: ViewController,
+    public alertCtrl: AlertController
   ) {
-      this.show = false;
+      //this.show = false;
+  }
+
+  presentAlert() {
+      const alert = this.alertCtrl.create({
+          title: 'Incorrect Password',
+          //subTitle: 'Incorrect Password',
+          buttons: ['Dismiss']
+      });
+      alert.present();
+
   }
 
   async login(user: User) {
@@ -38,7 +50,8 @@ export class LoginPage {
         }, error => {
             console.log(error);
             if (error.code == "auth/wrong-password") {
-                this.show = true;
+                //this.show = true;
+                this.presentAlert();
             }
           })
 
