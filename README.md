@@ -1,26 +1,10 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# SnapFeels
 
-## How to use this template
+SnapFeels is a mobile app for tracking users emotions over time utilizing the camera and Microsoft Azure's emotion recognition API. The app is inteded to increase mindfullness of your emotions and visualize positive or negative trends in your own emotional health.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+## Built With
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
 
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myTutorial tutorial
-```
-
-Then, to run it, cd into `myTutorial` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
+* [Ionic](https://ionicframework.com/) - The mobile app devolpement framework used
+* [Azure Emotion API](https://azure.microsoft.com/en-us/services/cognitive-services/emotion/) - Used to read emotions from pictures
+* [Firebase](https://rometools.github.io/rome/) - Database service to store user information
