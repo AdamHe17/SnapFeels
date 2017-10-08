@@ -30,14 +30,15 @@ export class RegisterPage {
 
   messageAlert(message: string) {
       const alert = this.alertCtrl.create({
-          title: message,
+          title: "Oops!",
+          message: message,
           buttons: ['Dismiss']
       });
       alert.present();
   }
 
   async register(user: User) {
-      //try {
+      try {
       const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
           .then(result => {
               console.log(result);
@@ -45,18 +46,21 @@ export class RegisterPage {
           }, error => {
               console.log(error);
               if (error.code == "auth/invalid-email") {
-                  this.messageAlert("Invalid Email Address");
+                  this.messageAlert("Please enter a valid email address");
               } else if (error.code == "auth/weak-password") {
                   //this.show = true;
                   this.messageAlert('Password Must Be At Least 6 Characters');
               } else if (error.code == "auth/email-already-in-use") {
-                  this.messageAlert("Email Already In Use");
+                  this.messageAlert("This email is already taken");
               }
           })
 
-      //} catch (e) {
-      //throw (e);
-      //}
+      } catch (error) {
+          console.log(error)
+          if (error.code == "auth/argument-error") {
+              this.messageAlert('Did you leave anything blank?');
+          }
+      }
 
   }
 

@@ -24,3 +24,14 @@
   justify-content: space-around;
   align-items: center;
 }
+
+#camera {
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-content {
+  text-align: center;
+}

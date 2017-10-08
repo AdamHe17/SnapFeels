@@ -35,30 +35,31 @@ export class LoginPage {
 
   messageAlert(message: string) {
       const alert = this.alertCtrl.create({
-          title: message,
+          title: "Oops!",
+          message: message,
           buttons: ['Dismiss']
       });
       alert.present();
   }
 
   async login(user: User) {
-    //try {
+    try {
       const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
         .then(result => {
           console.log(result);
           this.viewController.dismiss();
         }, error => {
             console.log(error);
-            if (error.code == "auth/invalid-email") {
-                this.messageAlert("Invalid Email Address");
-            } else if (error.code == "auth/wrong-password") {
-                this.messageAlert("Incorrect Password");
+            if (error.code == "auth/invalid-email" || error.code == "auth/wrong-password") {
+                this.messageAlert("Incorrect Email Address or Password");
             }
           })
 
-    //} catch (e) {
-      //throw (e);
-    //}
+    } catch (error) {
+        if (error.code == "auth/argument-error") {
+            this.messageAlert('Did you leave anything blank?');
+        }
+    }
 
   }
 
