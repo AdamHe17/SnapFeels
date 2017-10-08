@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { FirestoreProvider } from "../../providers/firestore-provider/firestore-provider";
-import {PopoverPage} from "../popover/popover";
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 
@@ -44,13 +43,6 @@ export class ProfilePage {
     }
     const uid = firebase.auth().currentUser.uid;
     this.data = firestoreProvider.getData(uid);
-  }
-
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: myEvent
-    });
   }
 
   updateSelectedFeeling() {
