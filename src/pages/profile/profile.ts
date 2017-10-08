@@ -52,19 +52,20 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
-    var barDatasets = [];
-    var labels = [];
+    let barDatasets = [];
     this.data.subscribe(d => {
-      for (var i = 0; i < 8; i++) {
-        var feeling = Object.keys(this.feelingToColor)[i];
-        var data = d.map(_d => _d['scores'][feeling]);
-        barDatasets.push({
-          label: feeling,
-          data: data,
-          backgroundColor: this.feelingToColor[feeling].replace('1)', '0.2)'),
-          borderColor: this.feelingToColor[feeling],
-          borderWidth: 2
-        });
+      if (barDatasets.length == 0) {
+        for (var i = 0; i < 8; i++) {
+          var feeling = Object.keys(this.feelingToColor)[i];
+          var data = d.map(_d => _d['scores'][feeling]);
+          barDatasets.push({
+            label: feeling,
+            data: data,
+            backgroundColor: this.feelingToColor[feeling].replace('1)', '0.2)'),
+            borderColor: this.feelingToColor[feeling],
+            borderWidth: 2
+          });
+        }
       }
 
       this.stackedBarChart = new Chart(this.stackedBarCanvas.nativeElement, {
