@@ -16,6 +16,8 @@
 <ion-footer>
   <ion-toolbar>
     <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
-    <button ion-button (click)="uploadPicture()">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
+    <div *ngIf="localImageUri">
+      <button ion-button (click)="uploadPicture()">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
+    </div>
   </ion-toolbar>
 </ion-footer>
