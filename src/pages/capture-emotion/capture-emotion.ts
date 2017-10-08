@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map';
 import {ImageProvider} from "../../providers/image-provider/image-provider";
 import {AngularFireAuth} from "angularfire2/auth";
 
+import * as firebase from 'firebase';
+
 /**
  * Generated class for the CaptureEmotionPage page.
  *
@@ -27,12 +29,14 @@ export class CaptureEmotionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public http: Http,  private afAuth: AngularFireAuth, private imageSrv: ImageProvider) {
     this.cameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 20,
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       cameraDirection: 1,
       saveToPhotoAlbum: true
+
     }
   }
 
@@ -42,7 +46,7 @@ export class CaptureEmotionPage {
 
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then((imageUri) => {
-      this.localImageUri = imageUri;
+      this.localImageUri = 'data:image/jpeg;base64,' + imageUri;
       }, (err) => {
         console.log(err);
       });
@@ -58,23 +62,24 @@ export class CaptureEmotionPage {
 
     console.log(this.localImageUri);
 
-    let uid = null;
-    this.afAuth.authState.subscribe(res => {
-      if (res && res.uid) {
-        uid = res.uid;
-      } else {
-        console.log("User not logged in!");
-      }
-    });
-    this.imageSrv.uploadImage(this.localImageUri, uid);
+    const uid = firebase.auth().currentUser.uid;
 
-    this.http.post(emotion_api_url, { url: this.localImageUri }, options)
-      .map(data => data.json())
-      .subscribe(result => {
-        this.result = result;
+    console.log("uid: " + uid);
+
+    this.imageSrv.uploadImage(this.localImageUri, uid, result => {
         console.log(result);
-      }, error => {
-        console.log(error);
+        const url = result.downloadURL;
+
+        console.log(url);
+
+        this.http.post(emotion_api_url, { url: url + ".jpg" }, options)
+          .map(data => data.json())
+          .subscribe(result => {
+            this.result = result;
+            console.log(result);
+          }, error => {
+            console.log(error);
+          });
       });
   }
 
