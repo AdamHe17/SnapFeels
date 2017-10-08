@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -27,8 +27,10 @@ export class CaptureEmotionPage {
   localImageUri: string;
   result: JSON;
   blob;
+  face;
+  emotion_api_url: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public http: Http, private afAuth: AngularFireAuth, private imageSrv: ImageProvider) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private camera: Camera, public http: Http, private afAuth: AngularFireAuth, private imageSrv: ImageProvider) {
     this.cameraOptions = {
       quality: 20,
       correctOrientation: true,
@@ -37,8 +39,9 @@ export class CaptureEmotionPage {
       mediaType: this.camera.MediaType.PICTURE,
       cameraDirection: 1,
       saveToPhotoAlbum: true
-
     }
+
+    this.emotion_api_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize';
   }
 
   ionViewDidLoad() {
@@ -60,47 +63,67 @@ export class CaptureEmotionPage {
       'Content-Type': 'application/octet-stream',
       'Ocp-Apim-Subscription-Key': '8a4acf70affb43fda17efdb209a8cda7'
     });
+
     const options = new RequestOptions({ headers });
-    const emotion_api_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize';
+
+    /*
     const uid = firebase.auth().currentUser.uid;
 
     this.imageSrv.uploadImage(this.localImageUri, uid, result => {
-      console.log(result);
       const url = result.downloadURL;
-      console.log(url);
-      this.http.post(emotion_api_url, this.blob, options)
-        .map(data => data.json())
-        .subscribe(result => {
-          this.result = result;
-          console.log(result);
-        }, error => {
-          console.log(error);
-        });
+
     });
+    */
+
+    this.http.post(this.emotion_api_url, this.blob, options)
+      .map(data => data.json())
+      .subscribe(result => {
+        this.result = result;
+        console.log(result);
+        this.setFace();
+        console.log(this.face);
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  setFace() {
+    if (!this.result) {
+      const alert = this.alertCtrl.create({
+        title: 'No face found! :(',
+        buttons: ['Try again']
+      });
+      alert.present();
+    } else {
+      for(let i in this.result) {
+        if (!this.face || this.result[i].faceRectangle.width > this.face.faceRectangle.width)
+          this.face = this.result[i];
+      }
+    }
   }
 
   b64toBlob(b64Data, contentType, sliceSize) {
-  contentType = contentType || '';
-  sliceSize = sliceSize || 512;
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
 
-  var byteCharacters = atob(b64Data);
-  var byteArrays = [];
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
 
-  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    var slice = byteCharacters.slice(offset, offset + sliceSize);
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-    var byteNumbers = new Array(slice.length);
-    for (var i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
     }
 
-    var byteArray = new Uint8Array(byteNumbers);
-
-    byteArrays.push(byteArray);
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
   }
-
-  var blob = new Blob(byteArrays, {type: contentType});
-  return blob;
-}
 
 }
