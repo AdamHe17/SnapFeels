@@ -40,19 +40,6 @@ export class ProfilePage {
       sadness: 'rgba(11, 13, 36, 1)',
       surprise: 'rgba(79, 18, 42, 1)'
     }
-    // this.data = [{
-    //   "scores": {
-    //     "anger": 2.56436469E-5,
-    //     "contempt": 0.00132533628,
-    //     "disgust": 4.94384767E-5,
-    //     "fear": 9.397171E-6,
-    //     "happiness": 1.935962E-4,
-    //     "neutral": 0.9948919,
-    //     "sadness": 0.00185261923,
-    //     "surprise": 0.00165209966
-    //   },
-    //   "timestamp": "Sun Oct 08 2017 02:31:41 GMT-0500 (CDT)"
-    // }];
     const uid = firebase.auth().currentUser.uid;
     this.data = firestoreProvider.getData(uid);
   }

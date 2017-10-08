@@ -19,9 +19,19 @@
 <ion-content padding>
   <div class="vertical">
     <canvas #stackedBarCanvas height="200"></canvas>
-    <div class="buttons">
-      <button ion-button>Choose some shit</button>
-    </div>
+    <ion-item>
+      <ion-label>Feelings:&nbsp;</ion-label>
+      <ion-select [(ngModel)]="selectedFeeling">
+        <ion-option>anger</ion-option>
+        <ion-option>contempt</ion-option>
+        <ion-option>disgust</ion-option>
+        <ion-option>fear</ion-option>
+        <ion-option>happiness</ion-option>
+        <ion-option>neutral</ion-option>
+        <ion-option>sadness</ion-option>
+        <ion-option>surprise</ion-option>
+      </ion-select>
+    </ion-item>
     <canvas #lineCanvas height="200"></canvas>
   </div>
 </ion-content>
