@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>How do you feel today?</ion-title>
+    <ion-title>SnapFeels</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -10,12 +10,20 @@
       <img [src]="localImageUri" />
     </ion-card-content>
   </ion-card>
-  <div style="text-align: center">
-    <ion-icon id="camera" name="ios-camera-outline" *ngIf="!localImageUri"></ion-icon>
+
+  <div style="text-align: center;">
+    <h1>How do you feel today?</h1>
+
   </div>
+
+  <div id="camera" *ngIf="!localImageUri">
+    <img src="../../assets/icon/logo.jpeg"/>
+  </div>
+
+
 </ion-content>
 
-<ion-footer>
+<ion-footer no-border>
   <div class="buttons">
     <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
     <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
