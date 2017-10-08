@@ -59,10 +59,9 @@ export class ProfilePage {
       if (barDatasets.length == 0) {
         for (let i = 0; i < 8; i++) {
           let feeling = Object.keys(this.feelingToColor)[i];
-          let data = d.map(_d => _d['scores'][feeling]);
           barDatasets.push({
             label: feeling,
-            data: data,
+            data: d.map(_d => _d['scores'][feeling]),
             backgroundColor: this.feelingToColor[feeling].replace('1)', '0.2)'),
             borderColor: this.feelingToColor[feeling],
             borderWidth: 2
