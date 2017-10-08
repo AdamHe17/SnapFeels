@@ -31,14 +31,14 @@ export class ProfilePage {
   constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public firestoreProvider: FirestoreProvider) {
     this.selectedFeeling = "happiness";
     this.feelingToColor = {
-      anger: 'rgba(170, 57, 57, 1)',
-      contempt: 'rgba(24, 45, 8, 1)',
-      disgust: 'rgba(132, 75, 31, 1)',
-      fear: 'rgba(15, 17, 19, 1)',
-      happiness: 'rgba(67, 67, 22, 1)',
-      neutral: 'rgba(63, 63, 60, 1)',
-      sadness: 'rgba(11, 13, 36, 1)',
-      surprise: 'rgba(79, 18, 42, 1)'
+      anger: 'rgba(237, 33, 33, 1)', //red
+      contempt: 'rgba(170, 92, 249, 1)', //purple
+      disgust: 'rgba(132, 75, 31, 1)', //brown
+      fear: 'rgba(17, 1, 34, 1)', //black
+      happiness: 'rgba(237, 237, 42, 1)', //yellow
+      neutral: 'rgba(170, 217, 83, 1)', //greyish green
+      sadness: 'rgba(26, 126, 233, 1)', //navy
+      surprise: 'rgba(233, 26, 230, 1)' //pink
     }
     const uid = firebase.auth().currentUser.uid;
     this.data = firestoreProvider.getData(uid);
