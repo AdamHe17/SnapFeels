@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +32,8 @@ import { Camera } from '@ionic-native/camera';
     TabsPage,
     CaptureEmotionPage,
     ProfilePage,
-    DataPage
+    DataPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { Camera } from '@ionic-native/camera';
     TabsPage,
     CaptureEmotionPage,
     ProfilePage,
-    DataPage
+    DataPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
