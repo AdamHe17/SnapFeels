@@ -21,7 +21,7 @@ export class ProfilePage {
   @ViewChild('stackedBarCanvas') stackedBarCanvas;
   @ViewChild('lineCanvas') lineCanvas;
 
-  // lineChart: any;
+  lineChart: any;
   stackedBarChart: any;
   selectedFeeling: string;
 
@@ -30,7 +30,7 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
-    var myChart = new Chart(this.stackedBarCanvas.nativeElement, {
+    this.stackedBarChart = new Chart(this.stackedBarCanvas.nativeElement, {
       type: 'bar',
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
