@@ -14,10 +14,11 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>Line Chart</ion-card-header>
-    <ion-card-content>
-      <canvas #lineCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+  <div class="vertical">
+    <canvas #stackedBarCanvas height="200"></canvas>
+    <div class="buttons">
+      <button ion-button>Choose some shit</button>
+    </div>
+    <canvas #lineCanvas height="200"></canvas>
+  </div>
 </ion-content>

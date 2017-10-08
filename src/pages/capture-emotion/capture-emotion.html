@@ -10,12 +10,15 @@
       <img [src]="localImageUri" />
     </ion-card-content>
   </ion-card>
-  {{result | json}}
+  <div style="text-align: center">
+    <ion-icon id="camera" name="ios-camera-outline" *ngIf="!localImageUri"></ion-icon>
+  </div>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+  <div class="buttons">
     <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
-    <button ion-button (click)="uploadPicture()">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
-  </ion-toolbar>
+    <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
+  </div>
+  <br />
 </ion-footer>

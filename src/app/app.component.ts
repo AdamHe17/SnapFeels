@@ -3,7 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, ModalController } from 'ionic-angular';
 
 import { TabsPage } from "../pages/tabs/tabs";
-import { LoginPage } from "../pages/login/login"
+import { LoginPage } from "../pages/login/login";
+import { ProfilePage } from "../pages/profile/profile";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +37,7 @@ export class MyApp {
       this.splashScreen.hide();
 
       const loginModal = this.modalController.create(LoginPage);
-      loginModal.present();
+      // loginModal.present();
     });
   }
 }
