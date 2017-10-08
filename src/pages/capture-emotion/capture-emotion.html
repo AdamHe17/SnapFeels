@@ -24,5 +24,7 @@
       <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
       <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
     </div>
+
+    <!--<canvas #pieChart height="100"></canvas>-->
   </div>
 </ion-content>

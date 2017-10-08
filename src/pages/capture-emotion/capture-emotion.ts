@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import {FirestoreProvider} from "../../providers/firestore-provider/firestore-provider";
 import {Feel} from "../../models/feel";
 import * as firebase from 'firebase';
+import { Chart } from 'chart.js';
 
 /**
  * Generated class for the CaptureEmotionPage page.
@@ -30,6 +31,8 @@ export class CaptureEmotionPage {
   face;
   emotion_api_url: string;
   submitted: boolean;
+  @ViewChild('pieChart') pieChart;
+  feelingToColor;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private camera: Camera, public http: Http, private fsp: FirestoreProvider) {
     this.cameraOptions = {
@@ -42,12 +45,35 @@ export class CaptureEmotionPage {
       saveToPhotoAlbum: true
     }
 
+    this.feelingToColor = {
+      anger: 'rgba(237, 33, 33, 1)', //red
+      contempt: 'rgba(170, 92, 249, 1)', //purple
+      disgust: 'rgba(132, 75, 31, 1)', //brown
+      fear: 'rgba(17, 1, 34, 1)', //black
+      happiness: 'rgba(237, 237, 42, 1)', //yellow
+      neutral: 'rgba(170, 217, 83, 1)', //greyish green
+      sadness: 'rgba(26, 126, 233, 1)', //navy
+      surprise: 'rgba(233, 26, 230, 1)' //pink
+    }
+
     this.emotion_api_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize';
     this.submitted = false;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CaptureEmotionPage');
+  messageAlert(message: string) {
+    const alert = this.alertCtrl.create({
+      title: "Face detected!",
+      message: message,
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+
+  ionViewWillEnter() {
+    if (this.submitted) {
+      this.localImageUri = null;
+      this.submitted = false;
+    }
   }
 
   takePicture() {
@@ -77,9 +103,34 @@ export class CaptureEmotionPage {
         let feel = new Feel(this.face.scores);
         this.fsp.setData(uid);
         this.fsp.saveFeel(feel);
-        console.log(this.face);
-        console.log(this.fsp.getData(uid));
+        let s = "Your face was detected. Check out the stats page!";
+        this.messageAlert(s);
+
         this.submitted = true;
+
+        /*
+        this.pieChart = new Chart(this.pieChart.nativeElement,{
+          type: 'pie',
+          data: {
+            datasets: [{
+              data: feel.getValues(),
+              backgroundColor: [
+                this.feelingToColor['anger'], this.feelingToColor['contempt'], this.feelingToColor['disgust'], this.feelingToColor['fear'],
+                this.feelingToColor['happiness'], this.feelingToColor['neutral'], this.feelingToColor['sadness'], this.feelingToColor['surprise']
+              ]
+            }],
+
+            labels: [
+              "anger", "contempt", "disgust", "fear",
+              "happiness", "neutral", "sadness", "surprise"
+            ]
+          },
+          options: {
+            responsive: true
+          }
+        });
+        */
+
       }, error => {
         console.log(error);
       });
