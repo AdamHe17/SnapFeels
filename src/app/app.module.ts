@@ -13,7 +13,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {ProfilePage} from "../pages/profile/profile";
 import {TabsPage} from "../pages/tabs/tabs";
@@ -23,6 +22,8 @@ import {HttpModule} from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
 import { ImageProvider } from '../providers/image-provider/image-provider';
+import { FirestoreProvider } from '../providers/firestore-provider/firestore-provider';
+import { AngularFireDatabaseModule } from "angularfire2/database";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { ImageProvider } from '../providers/image-provider/image-provider';
     HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule,
-    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG)
 
@@ -63,7 +64,8 @@ import { ImageProvider } from '../providers/image-provider/image-provider';
     SplashScreen,
     Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ImageProvider
+    ImageProvider,
+    FirestoreProvider
   ]
 })
 export class AppModule {}

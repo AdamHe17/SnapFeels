@@ -37,7 +37,7 @@ export class MyApp {
       this.splashScreen.hide();
 
       const loginModal = this.modalController.create(LoginPage);
-      // loginModal.present();
+      loginModal.present();
     });
   }
 }

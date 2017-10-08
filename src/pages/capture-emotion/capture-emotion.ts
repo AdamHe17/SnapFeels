@@ -5,9 +5,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { ImageProvider } from "../../providers/image-provider/image-provider";
-import { AngularFireAuth } from "angularfire2/auth";
 
+import {FirestoreProvider} from "../../providers/firestore-provider/firestore-provider";
+import {Feel} from "../../models/feel";
 import * as firebase from 'firebase';
 
 /**
@@ -30,7 +30,7 @@ export class CaptureEmotionPage {
   face;
   emotion_api_url: string;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private camera: Camera, public http: Http, private afAuth: AngularFireAuth, private imageSrv: ImageProvider) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private camera: Camera, public http: Http, private fsp: FirestoreProvider) {
     this.cameraOptions = {
       quality: 20,
       correctOrientation: true,
@@ -65,26 +65,23 @@ export class CaptureEmotionPage {
     });
 
     const options = new RequestOptions({ headers });
-
-    /*
     const uid = firebase.auth().currentUser.uid;
-
-    this.imageSrv.uploadImage(this.localImageUri, uid, result => {
-      const url = result.downloadURL;
-
-    });
-    */
 
     this.http.post(this.emotion_api_url, this.blob, options)
       .map(data => data.json())
       .subscribe(result => {
         this.result = result;
-        console.log(result);
         this.setFace();
+        let feel = new Feel(this.face.scores);
+        this.fsp.setData(uid);
+        this.fsp.saveFeel(feel);
         console.log(this.face);
+        console.log(this.fsp.getData(uid));
       }, error => {
         console.log(error);
       });
+
+
   }
 
   setFace() {

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { User } from "../../models/user";
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AlertController } from 'ionic-angular';
+import {FirestoreProvider} from "../../providers/firestore-provider/firestore-provider";
 
 /**
  * Generated class for the LoginPage page.
@@ -26,7 +27,8 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewController: ViewController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private fsp: FirestoreProvider
   ) {
       //this.show = false;
   }
