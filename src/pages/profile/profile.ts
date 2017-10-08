@@ -1,10 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { User } from "../../models/user";
-import { AngularFireAuth } from 'angularfire2/auth';
+import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { FirestoreProvider } from "../../providers/firestore-provider/firestore-provider";
 import * as firebase from 'firebase';
+import {PopoverPage} from "../popover/popover";
 
 /**
  * Generated class for the ProfilePage page.
@@ -29,7 +28,7 @@ export class ProfilePage {
   feelingToColor: {};
   data: any;
 
-  constructor(public navCtrl: NavController, public firestoreProvider: FirestoreProvider) {
+  constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public firestoreProvider: FirestoreProvider) {
     this.selectedFeeling = "happiness";
     this.feelingToColor = {
       anger: 'rgba(170, 57, 57, 1)',
@@ -56,6 +55,13 @@ export class ProfilePage {
     // }];
     const uid = firebase.auth().currentUser.uid;
     this.data = firestoreProvider.getData(uid);
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: myEvent
+    });
   }
 
   ionViewDidLoad() {

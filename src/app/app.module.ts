@@ -35,7 +35,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
     CaptureEmotionPage,
     ProfilePage,
     DataPage,
-    LoginPage
+    LoginPage,
   ],
   imports: [
     BrowserModule,
