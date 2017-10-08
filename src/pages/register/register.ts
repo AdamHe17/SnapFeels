@@ -37,7 +37,7 @@ export class RegisterPage {
   }
 
   async register(user: User) {
-      //try {
+      try {
       const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
           .then(result => {
               console.log(result);
@@ -54,9 +54,12 @@ export class RegisterPage {
               }
           })
 
-      //} catch (e) {
-      //throw (e);
-      //}
+      } catch (error) {
+          console.log(error)
+          if (error.code == "auth/argument-error") {
+              this.messageAlert('Empty Forms Detected');
+          }
+      }
 
   }
 

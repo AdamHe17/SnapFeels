@@ -42,7 +42,7 @@ export class LoginPage {
   }
 
   async login(user: User) {
-    //try {
+    try {
       const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
         .then(result => {
           console.log(result);
@@ -56,9 +56,11 @@ export class LoginPage {
             }
           })
 
-    //} catch (e) {
-      //throw (e);
-    //}
+    } catch (error) {
+        if (error.code == "auth/argument-error") {
+            this.messageAlert('Empty Forms Detected');
+        }
+    }
 
   }
 
