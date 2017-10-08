@@ -2,8 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { FirestoreProvider } from "../../providers/firestore-provider/firestore-provider";
-import * as firebase from 'firebase';
 import {PopoverPage} from "../popover/popover";
+import * as firebase from 'firebase';
+import * as moment from 'moment';
+
 
 /**
  * Generated class for the ProfilePage page.
@@ -55,9 +57,9 @@ export class ProfilePage {
     let barDatasets = [];
     this.data.subscribe(d => {
       if (barDatasets.length == 0) {
-        for (var i = 0; i < 8; i++) {
-          var feeling = Object.keys(this.feelingToColor)[i];
-          var data = d.map(_d => _d['scores'][feeling]);
+        for (let i = 0; i < 8; i++) {
+          let feeling = Object.keys(this.feelingToColor)[i];
+          let data = d.map(_d => _d['scores'][feeling]);
           barDatasets.push({
             label: feeling,
             data: data,
@@ -68,10 +70,12 @@ export class ProfilePage {
         }
       }
 
+      console.log("Bar:");
+
       this.stackedBarChart = new Chart(this.stackedBarCanvas.nativeElement, {
         type: 'bar',
         data: {
-          labels: d.map(_d => new Date(_d['timestamp']).toISOString()),
+          labels: d.map(_d => moment(_d['timestamp']).fromNow()),
           datasets: barDatasets
         },
         options: {
@@ -87,7 +91,7 @@ export class ProfilePage {
               ticks: {
                 beginAtZero: true
               },
-              type: 'time',
+              // type: 'time', // THIS causes the x-axis string formatting bug.
               time: {
                 displayFormats: {
                   day: 'MM/DD'
@@ -98,10 +102,12 @@ export class ProfilePage {
         }
       });
 
+      console.log("Line:");
+
       this.lineChart = new Chart(this.lineCanvas.nativeElement, {
         type: 'line',
         data: {
-          labels: d.map(_d => new Date(_d['timestamp']).toISOString()),
+          labels: d.map(_d => moment(_d['timestamp']).fromNow()),
           datasets: [
             {
               label: this.selectedFeeling,
