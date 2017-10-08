@@ -1,5 +1,8 @@
 page-capture-emotion {
-  #camera {
-    font-size: 360px;
+  .vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
   }
 }

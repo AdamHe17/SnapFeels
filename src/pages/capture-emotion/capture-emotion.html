@@ -5,28 +5,24 @@
 </ion-header>
 
 <ion-content class="home">
-  <ion-card *ngIf="localImageUri">
-    <ion-card-content>
-      <img [src]="localImageUri" />
-    </ion-card-content>
-  </ion-card>
+  <div class="vertical" *ngIf="submitted">
+    <div style="text-align: center;">
+      <h1>How do you feel today?</h1>
+    </div>
 
-  <div style="text-align: center;">
-    <h1>How do you feel today?</h1>
+    <ion-card *ngIf="localImageUri">
+      <ion-card-content>
+        <img [src]="localImageUri" />
+      </ion-card-content>
+    </ion-card>
 
+    <div id="camera" *ngIf="!localImageUri">
+      <img src="../../assets/icon/logo.jpeg" />
+    </div>
+
+    <div class="buttons" *ngIf="!submitted">
+      <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
+      <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
+    </div>
   </div>
-
-  <div id="camera" *ngIf="!localImageUri">
-    <img src="../../assets/icon/logo.jpeg"/>
-  </div>
-
-
 </ion-content>
-
-<ion-footer no-border>
-  <div class="buttons">
-    <button ion-button (click)="takePicture()">{{localImageUri ? 'Retake Picture' : 'Take Picture'}}</button>
-    <button ion-button (click)="uploadPicture()" *ngIf="localImageUri">Looks Good &nbsp;<ion-icon name="ios-arrow-forward"></ion-icon></button>
-  </div>
-  <br />
-</ion-footer>
