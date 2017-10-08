@@ -51,7 +51,7 @@ export class ProfilePage {
     });
   }
 
-  ionViewDidLoad() {
+  updateSelectedFeeling() {
     let barDatasets = [];
     this.data.subscribe(d => {
       if (barDatasets.length == 0) {
@@ -140,5 +140,9 @@ export class ProfilePage {
         }
       });
     });
+  }
+
+  ionViewDidLoad() {
+    this.updateSelectedFeeling();
   }
 }
