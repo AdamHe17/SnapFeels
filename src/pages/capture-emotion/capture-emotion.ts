@@ -5,6 +5,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {ImageProvider} from "../../providers/image-provider/image-provider";
+import {AngularFireAuth} from "angularfire2/auth";
 
 /**
  * Generated class for the CaptureEmotionPage page.
@@ -23,7 +25,7 @@ export class CaptureEmotionPage {
   localImageUri: string;
   result: JSON;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public http: Http,  private afAuth: AngularFireAuth, private imageSrv: ImageProvider) {
     this.cameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -41,9 +43,9 @@ export class CaptureEmotionPage {
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then((imageUri) => {
       this.localImageUri = imageUri;
-    }, (err) => {
-      console.log(err);
-    });
+      }, (err) => {
+        console.log(err);
+      });
   }
 
   uploadPicture() {
@@ -55,6 +57,16 @@ export class CaptureEmotionPage {
     const emotion_api_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize';
 
     console.log(this.localImageUri);
+
+    let uid = null;
+    this.afAuth.authState.subscribe(res => {
+      if (res && res.uid) {
+        uid = res.uid;
+      } else {
+        console.log("User not logged in!");
+      }
+    });
+    this.imageSrv.uploadImage(this.localImageUri, uid);
 
     this.http.post(emotion_api_url, { url: this.localImageUri }, options)
       .map(data => data.json())

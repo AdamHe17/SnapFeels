@@ -21,6 +21,7 @@ import {DataPage} from "../pages/data/data";
 import {HttpModule} from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
+import { ImageProvider } from '../providers/image-provider/image-provider';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { Camera } from '@ionic-native/camera';
     StatusBar,
     SplashScreen,
     Camera,
-    // {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ImageProvider
   ]
 })
 export class AppModule {}
