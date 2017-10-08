@@ -63,7 +63,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
     StatusBar,
     SplashScreen,
     Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    // {provide: ErrorHandler, useClass: IonicErrorHandler},
     ImageProvider,
     FirestoreProvider
   ]
