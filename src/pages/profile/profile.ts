@@ -74,7 +74,8 @@ export class ProfilePage {
             yAxes: [{
               stacked: true,
               ticks: {
-                beginAtZero: true
+                min: 0,
+                max: 1,
               }
             }],
             xAxes: [{
@@ -124,8 +125,14 @@ export class ProfilePage {
           ],
           options: {
             scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 1,
+                }
+              }],
               xAxes: [{
-                type: 'time',
+                // type: 'time',
                 time: {
                   displayFormats: {
                     day: 'MM/DD'
