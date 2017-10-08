@@ -46,7 +46,7 @@ export class ProfilePage {
   }
 
   updateSelectedFeeling() {
-    let barDatasets = [];
+    const barDatasets = [];
     this.data.subscribe(d => {
       if (barDatasets.length == 0) {
         for (let i = 0; i < 8; i++) {
